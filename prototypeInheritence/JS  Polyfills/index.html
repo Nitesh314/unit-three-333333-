@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>JS POLYFILLS</h1>
+    <h2>CREATE WON MWTHOD</h2>
+    <p>1 Array.map()</p>
+    <p>2 Array.forEach()</p>
+    <p>3 Array.filter()</p>
+    <p>4 Array.reduce()</p>
+</body>
+</html>
+
+<script>
+   
+   let arr=[2,5,10,12];
+//************************map***************************
+Array.prototype.myMap=function (fun){
+
+let newarr=[];
+for(var i=0;i<this.length;i++)
+{
+    let element=this[i];
+    
+    let m=fun(element);
+     
+    newarr.push(m);
+    
+    
+}
+return newarr;
+}
+
+let x=arr.myMap(function(m){
+return m*2;
+
+})
+console.log("x:",x)
+
+//**************************forEach*******************
+
+Array.prototype.myforEach=function (fun){
+
+let arr1=[];
+for(var i=0;i<this.length;i++)
+{
+    let element=(this[i],i,this);
+    
+    let m=fun(element);
+     
+    arr1.push(m);
+    
+    
+}
+return arr1;
+}
+
+arr.myMap(function(m,i,a){
+
+console.log("f:",m*10,)
+
+})
+
+//**************************filter************************
+// let y=arr.filter(m)
+
+// function m(a){
+//     return a>=2;
+// }
+// console.log("y",y)
+
+Array.prototype.Filter=function (func){
+
+    let new_arr=[];
+    for(let i=0;i<this.length;i++)
+    {
+        if(func(this[i])==true)
+        {
+            new_arr.push(this[i]);
+        }
+    }
+    return new_arr
+}
+
+let y=x.Filter(fill)
+
+function fill(a){
+    return a>=10;
+}
+console.log("y:",y)
+ 
+//*****************************reduce*******************************
+
+// let z=y.reduce(myfunc);
+
+// function myfunc(total,num){
+//     return total+num;
+// }
+// console.log("z:",z)
+
+Array.prototype.Reduce=function (myred){
+
+    let sum=0;
+
+    for(let i=0;i<this.length;i++)
+    {
+        myred(sum=sum+this[i]);
+    }
+
+    return sum;
+
+}
+
+
+let z=y.Reduce(myred);
+
+function myred(total,num){
+    return total+num;
+}
+console.log("z:",z)
+
+
+
+
+
+
+  
+
+</script>

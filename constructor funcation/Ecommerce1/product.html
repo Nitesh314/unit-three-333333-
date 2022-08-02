@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #counter{
+            width: 20%;
+            height: 50px;
+           
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+        }
+        #counter>h1{
+            font-size: 20px;
+            color: red;
+        }
+        #con{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-template-rows: auto;
+            gap: 20px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+        }
+       #con>div{
+     
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+       }
+       img{
+        display: inline-block;
+        max-width: 100%;
+        height:auto;
+       }
+       h3{
+        text-align: center;
+        font-size: 20px;
+       }
+       button{
+        width: 47%;
+        margin-left: 5px;
+        margin-right: 5px;
+       }
+     
+    </style>
+</head>
+<body>
+    <button id="show" onclick="showfun1()">Fill Data</button>
+    <div id="counter">
+        <h1 id="h1"></h1>
+    </div>
+    <div id="con">
+
+    </div>
+</body>
+</html>
+
+<script>
+
+    function append(){
+
+        let arr=JSON.parse(localStorage.getItem("Products"))||[];
+
+        let con =document.getElementById("con")
+        con.innerHTML=null
+
+        arr.forEach(function (ele,index){
+
+            let div=document.createElement("div");
+
+            let image=document.createElement("img")
+            image.src=ele.image;
+            
+            let div1=document.createElement("div")
+
+            let name=document.createElement("h3")
+            name.innerText=ele.name;
+
+            let category=document.createElement("p")
+            category.innerText=ele.category;
+
+            let price=document.createElement("p")
+            price.innerText=ele.price+"₹";
+
+            let gender=document.createElement("p")
+            gender.innerText=ele.gender;
+
+            let sold_value=document.createElement("p")
+            sold_value.innerText=ele.sold
+
+            let sold=document.createElement("button")
+            sold.innerText="Sold";
+            sold.setAttribute("id","sold")
+            sold.addEventListener("click",function (){
+                if( sold_value.innerText=="true")
+                {
+                    sold_value.innerText="false"
+                    sold.style.backgroundColor="green"
+                    sold.style.color="white";
+                }
+                else
+                {
+                    sold_value.innerText="true"
+                    sold.style.backgroundColor="red"
+                    sold.style.color="white";
+                }
+            });
+          
+
+            let remove=document.createElement("button")
+            remove.innerText="Remove";
+            remove.addEventListener("click",function(){
+                 
+                removefun(index);
+            });
+             
+            div1.append(category,price,gender,sold_value,sold,remove)
+            div.append(image,name,div1)
+
+           con.append(div)
+
+        })
+       
+    }
+
+append();
+    
+function removefun(index){
+console. log("hiiiii")
+let data =JSON.parse(localStorage.getItem("Products"))||[];  
+
+let newdata=data.filter(function (el,i){
+    if(i===index){
+        let trash=JSON.parse(localStorage.getItem("trash"))||[];
+        trash.push(el);
+       localStorage.setItem("trash",JSON.stringify(trash));
+
+    }
+    else{
+        return i !==index;
+    }
+});
+ 
+localStorage.setItem("Products",JSON.stringify(newdata))
+  window.location.reload();
+
+  
+ 
+
+
+}    
+    function counter(){
+        let arr=JSON.parse(localStorage.getItem("Products"))||[];
+      
+       let counte=document.getElementById("h1")
+       counte.innerHTML="Products:-"+arr.length;
+    }
+    counter()
+
+    function showfun1(){
+        window.location.href="index.html"
+    }
+   
+ 
+</script>

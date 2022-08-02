@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>costom Array</h1>
+</body>
+</html>
+<script>
+    function myArray(){
+        this.length=0;
+        Object.defineProperty(this,"length",{
+            value:0,
+            enumerable:false,
+            writable:true
+
+        })
+    }
+
+    myArray.prototype.push=function(ele){
+        this[this.length]=ele;
+        this.length++;
+        return this.length;
+    }
+
+    myArray.prototype.pop=function(){
+        this.length--;
+        var popEle=this[this.length]
+        delete this[this.length]
+        return popEle;
+    }
+
+    myArray.prototype.map=function(cb){
+        var result =new myArray() 
+        for(index in this)
+        {
+           if (this.hasOwnProperty(index))
+           {
+                result.push(cb(this[index],index,this))
+           }
+        }
+        return result
+
+    } 
+
+    var arr=new myArray();
+
+    arr.push("5")
+    arr.push("5")
+    arr.pop()
+
+    console.log(arr)
+
+   var res =arr.map(function(val){
+    console.log(val)
+    return val*val
+   })
+   console.log(res)
+</script>

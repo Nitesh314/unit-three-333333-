@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>AUTOMOBILE INHERITANCE MODEL </h1>
+    <h2>four wheelar</h2>
+</body>
+</html>
+<script>
+    
+    function  cons(n,b,t,w){
+        this.name=n;
+        this.brand=b;
+        this.type=t;
+        this.wheel=w;
+    }
+
+    let car=new cons("tata harrier","tata moter","vechicle","4")
+    
+//  let car={
+//     name:"tata harrier",
+//     brand:"tata motor",
+//     type:"vechicle",
+//     wheel:"4",
+// }
+
+let car1=Object.create(car);
+car1.name="Tata harrier";
+car1.color="red";
+car1.price="80000";
+console.log("car:",car1)
+
+
+
+
+
+
+
+</script>

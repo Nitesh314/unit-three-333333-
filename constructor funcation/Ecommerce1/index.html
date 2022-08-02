@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #con{
+            width: 20%;
+            margin: auto;
+            border: 1px solid white;
+            margin-top: 50px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+        }
+        #input_form>input{
+            display: block;
+            margin-top: 20px;
+            width:90%;
+            height: 30px;
+            font-size: 15px;
+            margin-left: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        #gender{
+            width:90%;
+            height: 30px;
+            font-size: 15px;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+        h3{
+            text-align: center;
+          
+        }
+        #submit{
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <button id="show" onclick="showfun()">show product</button>
+    <div id="con">
+        <h3>Enter Products Details</h3>
+    <form id="input_form" onsubmit="myfun(event)">
+       <input type="text" placeholder="Enter Product Name" id="name">
+       <input type="text" placeholder="Enter category" id="category">
+       <input type="url" placeholder="Enter Image url" id="image">
+       <input type="number" placeholder="Enter Price" id="price">
+       <select  id="gender" >
+        <option value="">Gender</option>
+        <option id="male" value="Male">Male</option>
+        <option id="female" value="Female">Female</option>
+       </select>
+       <input type="boolean" placeholder="Enter Sold " id="sold">
+       <input type="submit" id="submit">
+       
+    </form>
+</div>
+</body>
+</html>
+<script>
+
+    
+    function constructor(n,c,i,p,g,s){
+        this.name=n;
+        this.category=c;
+        this.image=i;
+        this.price=p;
+        this.gender=g;
+        this.sold=s;
+    }
+
+    function myfun(e){
+        e.preventDefault();
+
+        let solds=document.getElementById("sold").value;
+        if(solds=="")
+        {
+          document.getElementById("sold").value="false"
+        }
+
+        let form=document.getElementById("input_form")
+
+        let p_name=form.name.value;
+        let category=form.category.value;
+        let image=form.image.value;
+        let price=form.price.value;
+        let gender=form.gender.value;
+        let sold=form.sold.value;
+       
+        console.log(p_name,category,image,price,gender,sold)
+
+       
+        
+        let product=new constructor(p_name,category,image,price,gender,sold)
+
+        let arr=JSON.parse(localStorage.getItem("Products"))||[];
+
+        arr.push(product)
+
+        localStorage.setItem("Products",JSON.stringify(arr))
+        window.location.href="product.html"
+        window.location.reload()
+
+    }
+    function showfun(){
+        window.location.href="product.html"
+    }
+
+  
+</script>

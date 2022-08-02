@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         a{
+        text-decoration: none;
+        color: red;
+        
+
+      }
+      #nav{
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      } a{
+        text-decoration: none;
+        color: red;
+        
+
+      }
+      #nav{
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      #form_div{
+         width: 25%;
+         margin: auto;
+         margin-top: 50px;
+         border: 1px solid ;
+      }
+      #student_form>input{
+        display: block;
+        margin-top: 20px;
+        width: 80%;
+        height: 40px;
+        margin-left: 25px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+      }
+      #batchs{
+        width: 80%;
+        height: 40px;
+        margin-left: 25px;
+        border-radius: 5px;
+
+      }
+      #submit{
+        cursor: pointer;
+        background-color: green;
+        color: white8;
+      }
+      #submit:hover{
+        background-color: red;
+        color: white;
+      }
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <a href="student.html"><h2>Student List</h2></a>
+        <h2 id="batch1_h2">Batch01</h2>
+        <h2 id="batch2_h2">Batch02</h2>
+    </div>
+    <div id="form_div">
+        <form  onsubmit="formfun(event)" id="student_form">
+           <input type="text" placeholder="Enter Name" id="name">
+           <input type="text" placeholder="Enter Course" id="course">
+           <input type="text" placeholder="Enter Unit" id="unit">
+           <input type="url" placeholder="Enter image" id="image">
+           <select id="batchs">
+            <option value="Batch01" id="batch1">Batch01</option>
+            <option value="Batch02" id="batch2">Batch02</option>
+           </select> 
+           <input type="submit" id="submit">
+        </form>
+    </div>
+</body>
+</html>
+<script>
+    count()
+function constructor(n,c,u,i,b){
+    this.name=n;
+    this.course=c;
+    this.unit=u;
+    this.image=i;
+    this.batch=b;
+}
+
+function formfun(e){
+    e.preventDefault();
+
+    console.log("hiiiiii")
+
+    let forms=document.querySelector("form")
+
+    let names=forms.name.value;
+    let courses=forms.course.value;
+    let units=forms.unit.value;
+    let images=forms.image.value;
+    let batchs=forms.batchs.value;
+
+    let student_obj=new constructor(names,courses,units,images,batchs)
+
+    let student_arr=JSON.parse(localStorage.getItem("student_data"))||[];
+
+    student_arr.push(student_obj);
+    console.log(student_arr)
+
+    localStorage.setItem("student_data",JSON.stringify(student_arr))
+    
+    window.location.reload()
+   
+}
+
+function count(){
+
+    let count=0;
+    let count1=0; 
+    let student_arr=JSON.parse(localStorage.getItem("student_data"))||[];
+
+    student_arr.forEach(function (ele){
+    
+    if(count==0)
+    {
+        document.getElementById("batch1_h2").innerText="Batch01 -"+count
+    }
+    if(count1==0)
+    {
+        document.getElementById("batch2_h2").innerText="Batch02 -"+count1
+    }
+    if(ele.batch=="Batch01")
+    {
+      count=count+1;
+      document.getElementById("batch1_h2").innerText="Batch01 -"+count
+    }
+    else if(ele.batch=="Batch02")
+    {
+        count1=count1+1;
+        document.getElementById("batch2_h2").innerText="Batch02 - "+count1
+    }
+    
+})
+    
+ 
+}
+
+
+
+
+</script>
