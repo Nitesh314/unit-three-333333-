@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #nav{
+            display: flex;
+            width: 100%;
+            height: 50px;
+            justify-content: space-around;
+          
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+        }
+        a{
+            text-decoration: none;
+            color: red;
+            margin-top: -8px;
+        }
+        
+
+        #contenair{
+            width: 25%;
+            margin: auto;
+            border: 1px solid white;
+            margin-top: 50px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+           
+        }
+        #form>input{
+            display: block;
+            width: 80%;
+            height: 30px;
+            margin-left: 28px;
+            margin-top: 40px ;
+            border-radius: 5px;
+            font-size: 15px;
+          
+        }
+        #add_image{
+            width: 60%;
+            height: 30px;
+            margin-left: 65px;
+            margin-top: 20px ;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: bold;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        }
+        .text{
+            text-align: center;
+        }
+        p{
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <a href="slideShow.html"><h2>Go Slide Show</h2></a>
+        <a href="game.html"><h2>Go slide Show Game</h2></a>
+      
+    </div>
+    <div id="contenair">
+        <h2 class="text">Welcome to Album Creat App</h2>
+        <form id="form">
+        <input type="url" placeholder="Enter Image URL" id="image">
+        <input type="number" placeholder="Enter time in Second" id="time">
+    </form>
+    <button id="add_image" onclick="image()">Add image</button>
+        <p>Welcome to Album Creator App. Here you can add your image URL and go to Slide Show  Game once, you play the game then you will win your favorite Image</p>
+   
+    </div>
+</body>
+</html>
+<script>
+
+      function constructer(i){
+        this.image=i;
+      }
+
+   function image(){
+
+     let form=document.getElementById("form")
+
+     let image=form.image.value;
+     //let time=form.time.value;
+
+//*************************timer function hai button***************************
+       let btn= document.getElementById("add_image")
+       btn.color="white"
+       btn.style.backgroundColor="red"
+       let counter=0;
+       let id=setInterval(function (){
+        let time=document.getElementById("time").value;
+  
+           if(counter==0)
+           {
+            let btn= document.getElementById("add_image")
+            btn.color="white"
+            btn.style.backgroundColor="green"
+            clearInterval(id)
+           }
+           
+           if((image=="")||(time==""))
+            {
+                alert("Fille the input")
+            }
+        else{
+
+        let data=new constructer(image)
+        
+        console.log(data)
+    
+        let arr=JSON.parse(localStorage.getItem("user_data"))||[];
+    
+        arr.push(data);
+    
+        localStorage.setItem("user_data",JSON.stringify(arr));
+
+        alert("image add successfuuly")
+        }
+        window.location.reload()
+        counter++;
+       },500) 
+
+
+//************************************start time concept***************************************************************
+
+
+   let time=document.getElementById("time").value;
+  
+  if(time!=="")
+  {
+//     let objtime={
+//     time:time
+//    }
+  
+   
+//    console.log(objtime)
+
+  
+
+  
+
+   localStorage.setItem("time",JSON.stringify(time))
+   console.log("jiiiii")
+   let nitesh= JSON.parse(localStorage.getItem("time"))
+
+   console.log(nitesh)
+  
+
+  let x=+nitesh
+  console.log(typeof x)
+  }
+  
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+</script>

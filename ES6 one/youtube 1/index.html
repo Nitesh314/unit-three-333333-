@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/24c494a6b6.js" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="index.css"> 
+</head>
+<body>
+    <div id="navbar">
+    <img src="data:image/png;base64,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" alt="logo err" id="logo">
+    <input type="text" id="query" placeholder="search">
+    <button onclick="getdata()" id="search_btn"><i id="fafa" class="fa-solid fa-magnifying-glass"></i></button>
+    <i id="mic" class="fa-solid fa-microphone"></i>
+    <i id="cam" class="fa-solid fa-video"></i>
+    <i id="bell" class="fa-solid fa-bell"></i>
+    <img id="login" src="https://www.pngkey.com/png/full/46-463055_staysafeonline-org.png" alt="">
+    </div>
+
+    <div id="container"></div>
+</body>
+</html>
+<script>
+
+let query=document.getElementById("query").value;
+
+let api_key="AIzaSyD4FBlPEPRpLXAmXWCNCon5PoRLNJuN34I";
+
+
+
+let getData=async()=>{
+        console.log("hiiiiiiiii")
+        let query=document.getElementById("query").value;
+
+        try{
+            let query=document.getElementById("query").value;
+        let res=await fetch(`https://youtube.googleapis.com/youtube/v3/videos?&part=snippet&maxResults=40&chart=mostPopular&locale=India&regionCode=IN&key=AIzaSyD4FBlPEPRpLXAmXWCNCon5PoRLNJuN34I`)
+
+        let {items}=await res.json();
+
+        let video_arr=items;
+        if(query=="")
+        {
+            append_video(video_arr)
+        }
+        else{
+            append_video(video_arr)
+        }
+
+     
+
+        console.log(video_arr)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+    getData()
+
+
+   
+        let getdata=async()=>{
+        console.log("hiiiiiiiii")
+        let query=document.getElementById("query").value;
+
+        try{
+            let query=document.getElementById("query").value;
+        let res=await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${query}&key=${api_key}&part=snippet&maxResults=40`)
+
+        let {items}=await res.json();
+
+        let video_arr=items;
+        if(query=="")
+        {
+            append_video(video_arr)
+        }
+        else{
+            append_video(video_arr)
+        }
+
+     
+
+        console.log(video_arr)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
+
+
+        let append_video=(data)=>{
+
+        let con=document.getElementById("container")
+        con.innerHTML=null;
+
+
+
+        data.forEach(({snippet:{title,thumbnails},id:{videoId}})=>{
+            
+        let div=document.createElement("div");
+
+
+
+        let img=document.createElement("img")
+        img.src=thumbnails.high.url;
+        img.setAttribute("id","thumbnail")
+
+        let name=document.createElement("h4")
+        name.innerText=title;
+
+        div.append(img,name)
+
+        con.append(div)
+
+
+
+        let movie_data={
+            title:title,
+            videoId:videoId
+        }
+        console.log(movie_data)
+        div.onclick=()=>{
+            console.log("nitesdh shukla")
+            localStorage.setItem("video_data",JSON.stringify(movie_data))
+            window.location.href="video.html"
+        }
+
+        })
+        }
+
+</script>

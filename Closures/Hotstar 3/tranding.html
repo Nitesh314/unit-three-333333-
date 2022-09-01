@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         #trand{
+           
+           display:grid;
+           grid-template-columns: repeat(4,1fr);
+           grid-template-rows: auto;
+           gap: 20px;
+           text-align: center;
+           background-color:rgb(19,26,40);
+       }
+       #trand>div{
+           background-color: white;
+           border-radius: 5px;
+           box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+       }
+       
+       #last_img{
+
+           width: 100%;
+           height: 450px;
+       }
+    </style>
+</head>
+<body>
+    <div id="trand"></div>
+</body>
+</html>
+<script>
+   
+    async function movieData(){
+   
+    try{
+         
+        let result=await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=8272f11b304ba4c8c83fbf3e11d21486`)
+
+        let mData=await result.json();
+         appendData(mData.results)
+        console.log(mData.results)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+movieData()
+
+    function appendData(mData){
+
+        let con2=document.getElementById("trand")
+
+        mData.forEach(function (el){
+            
+         let con1=document.getElementById("movie")
+
+            let div=document.createElement("div")
+
+            let img=document.createElement("img")
+            img.src=`https://image.tmdb.org/t/p/w500${el.poster_path}`
+            img.setAttribute("id","last_img")
+
+            let title=document.createElement("h4")
+            title.innerText=el.title;
+
+            let year=document.createElement("p")
+            year.innerText=`Year:-${el.release_date}`
+
+            let imdb=document.createElement("p")
+            imdb.innerText=`IMDB:-${el.vote_average}`
+
+            let type=document.createElement("p")
+            type.innerText=`Type:-${el.media_type}`
+
+            div.append(img,title,year,type,imdb)
+            con2.append(div)
+
+        })
+         
+       
+    }
+
+</script>

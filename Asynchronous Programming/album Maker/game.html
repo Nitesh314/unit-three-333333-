@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        #nav{
+            display: flex;
+            width: 100%;
+            height: 50px;
+            justify-content: space-around;
+          
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+        }
+        a{
+            text-decoration: none;
+            color: red;
+            margin-top: -8px;
+        }
+        #container{
+            
+            width: 100%;
+            height: 500px;
+            margin-top: 20px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+        img{
+            width: 100%;
+            height: 500px;
+        }
+        #btn_div{
+            display: flex;
+            width: 30%;
+            margin: auto;
+            margin-top:20px;
+            justify-content:space-between;
+
+        }
+        #btn1{
+           
+            width: 25%;
+            height:40px ;
+            font-size: 15px;
+            font-weight: bold;
+            background-color: green;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: none;
+
+        }
+        #btn2{
+            width: 25%;
+            height:40px ;
+            font-size: 15px;
+            font-weight: bold;
+            background-color: red;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav">
+        <a href="index.html"><h2>Go Add image</h2></a>
+        <a href="game.html"><h2>Go slide Show Game</h2></a>
+    </div>
+    
+    <div id="container"></div>
+    <div id="btn_div">
+    <button  id="btn1" onclick="start()">start</button>
+    <button id="btn2" onclick="pause()">pause</button>
+</div>
+</body>
+</html>
+<script>
+    console.log("hiiiiiiiii")
+   let id;
+    function start(){
+        document.getElementById("container").innerHTML=null
+        
+    let arr=JSON.parse(localStorage.getItem("user_data"))||[];
+    let nitesh= JSON.parse(localStorage.getItem("time"))
+    console.log(nitesh)
+    
+  
+   
+    let x=+nitesh
+    x=x*1000;
+   console.log(x)
+
+    let count=0;
+    let img2=document.createElement("img")
+      
+    img2.src=arr[count].image
+    document.getElementById("container").append(img2)
+    count++;
+    
+     id=setInterval(function(){
+
+        if(count==arr.length)
+        {
+            count=0;
+        }
+            img2.src=arr[count].image
+            document.getElementById("container").append(img2)
+            count++;
+           
+            //clearInterval(id)
+
+   
+
+    },50)
+
+}
+
+function pause(){
+   
+     clearInterval(id)
+    
+       alert("🎉✨🎉CONGRACHULATION🎉✨🎉")
+    
+}
+
+</script>

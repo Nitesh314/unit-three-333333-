@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h2{
+            text-align: center;
+            color: red;
+        }
+        #nav{
+            width: 100%;
+            height: 50px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+        }
+        #city{
+            width: 50%;
+            height: 25px;
+            margin-left: 280px;
+            margin-top: 10px;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+            border-color: white;
+        }
+        #btn{
+            width: 10%;
+            height: 32px;
+            margin-top:8px;
+            margin-left: -7px;
+            font-size: 15px;
+            font-weight: bold;
+            background-color: rgb(72,72,74);
+            color: white;
+            cursor: pointer;
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .gmap_canvas{
+            overflow:hidden;
+            background:none!important;
+            height:300px;width:600px;
+        }
+     
+        .mapouter{
+            position: absolute;
+            position:relative;
+            text-align:right;
+            height:300px;
+            width:600px;
+            margin-top: 50px;
+            margin-left:300px;
+        }
+
+           #main_con{
+          display: flex;
+            width: 100%;
+            height: 400px;
+            margin-top: 50px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+        #con{
+            margin-top: 50px;
+            margin-left: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Search your city</h2>
+    <div id="nav">
+        <input type="text" id="city" placeholder="Enter city name">
+        <button onclick="getWeather()" id="btn">Submit</button>
+    </div>
+
+   
+   <div id="main_con">
+
+        
+    <div id="con"></div>
+
+    <div class="mapouter"><div class="gmap_canvas"><iframe width="600" height="300" id="gmap_canvas"  frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div></div>
+   
+  
+
+   </div>
+    
+    
+  
+    
+</body>
+</html>
+<script>
+ 
+
+
+ async function getWeather(){
+
+    let city=document.getElementById("city").value;
+    let key="b8fdccc74b188c705938584cec8e8267"
+
+    console.log("hiiiiiii")
+    
+    try{
+         
+        const url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`;
+
+        let res=await fetch(url)
+
+        let data=await res.json();
+        appendData(data)
+        console.log(data)
+    }
+    catch(err){
+        console.log(err)
+    }   
+ }
+
+
+ function appendData(data){
+    let map=document.getElementById("gmap_canvas")
+    
+  let contenaior= document.getElementById("con")
+  contenaior.innerHTML=null
+       
+    let name=document.createElement("h4")
+    name.innerText=data.name;
+    name.style.color="red"
+
+    let temp=document.createElement("p")
+    temp.innerText=`Temp:-${data.main.temp}`
+
+    let temp_min=document.createElement("p")
+    temp_min.innerText=`Min-Temp:-${data.main.temp_min}`
+
+    let feel_like=document.createElement("p")
+    feel_like.innerText=`Feels_like:-${data.main.feels_like}` 
+
+    let temp_max=document.createElement("p")
+    temp_max.innerText=`Max-Temp:-${data.main.temp_max}`
+
+    let pressure=document.createElement("p")
+    pressure.innerText=`Pressure:-${data.main.pressure}`
+
+    map.src=`https://maps.google.com/maps?q=${data.name}&t=&z=13&ie=UTF8&iwloc=&output=embed`
+
+    contenaior.append(name,temp,temp_min,feel_like,temp_max,pressure)
+ };
+
+
+</script>

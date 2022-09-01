@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/24c494a6b6.js" crossorigin="anonymous"></script>
+    <style>
+       #nav{
+        width: 100%;
+        height: 80px;
+        background-color: rgb(19,26,40);
+       }
+        #logo{
+            width: 15%;
+            height: 70px;
+            margin-top: 7px;
+        }
+        #query{
+            position: absolute;
+            margin-top:40px;
+            margin-left: 68%;
+            width: 400px;
+            margin-left: 650px;
+            color:white;
+            background-color:rgb(19,26,40);
+            font-size: 20px;
+            border:none;
+            outline: none;
+            
+        }
+        i{
+            position: absolute;
+            margin-top: 45px;
+            margin-left: 1025px;
+            color: gray;
+           
+        }
+        hr{
+            width:405px ;
+            margin-right:80px ;
+            margin-top: -14px;
+        }
+
+        #slider{
+            width: 100%;
+            height: 600px;
+        }
+        img{
+            width: 100%;
+            height:600px;
+        }
+        #search_div{
+            position: absolute;
+            width:480px ;
+            margin-left: 800px;
+            height: 600px;
+         
+            
+        }
+       #img2{
+            width: 70%;
+            height: 150px;
+            border-bottom-left-radius: 10px;
+            border-top-left-radius: 10px;
+          
+        }
+        #div{
+            display: flex;
+            gap: 20px;
+            border: 1px solid;
+            margin-bottom: 10px;
+            background-color: rgb(25,33,51);
+            color: white;
+            border-radius: 10px;
+            width: 95%;
+            height: 150px;
+            margin-left: 10px;
+            border-color:gray;
+        }
+
+        #movie{
+           
+            display:grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-template-rows: auto;
+            gap: 20px;
+            text-align: center;
+            background-color:rgb(19,26,40);
+        }
+        #movie>div{
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+        }
+        
+        #last_img{
+
+            width: 100%;
+            height: 450px;
+        }
+    
+      
+    </style>
+</head>
+<body>
+      <div id="nav">
+        <img src="https://images-na.ssl-images-amazon.com/images/I/71dL1eSWVVL.png" alt="" id="logo">
+        <input oninput="debounce (main,0)" id="query" type="text" placeholder="Search "> <i class="fa-solid fa-magnifying-glass"></i>
+         <hr>
+      </div>
+      <div id="search_div"></div>
+      <div id="slider"></div>
+      
+      <div id="movie"></div>
+</body>
+</html>
+<script>
+     
+     let sliderimg=["https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/6671/1306671-h-1f552514bd88",
+    "https://shifu.hotstarext.com/SOURCE/VOD/cd-2022-08-09/SamsungFOLD4_Pre_Rev_Desk-b60efc41-51c9-449f-a7e7-17d04ae7cc98.jpg",
+    "https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/895/1310895-h-892a5a5db90a",
+"https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/7641/1307641-h-28e0c285bf39"]
+
+let i=0;
+let img=document.createElement("img")
+
+let id=setInterval(function (){
+    if(i==sliderimg.length)
+    {
+        i=0;
+    }
+    else{
+        img.src=sliderimg[i];
+        document.getElementById("slider").append(img)
+        i++;
+    }
+},2000)
+
+
+
+
+
+
+
+
+let im;
+
+let con=document.getElementById("search_div");
+let movie=document.getElementById("movie")
+
+
+
+     
+    
+async function main(){
+       let query=document.getElementById("query").value;
+
+        if(query=="")
+        {
+          
+            con.innerHTML=null;
+    
+            con.style.backgroundColor=null
+            con.style.overflow=null
+        }
+        else{
+            con.style.backgroundColor="black"
+            con.style.overflow="scroll"
+        }
+        
+        try{
+            let query=document.getElementById("query").value;
+
+    
+        let res=await fetch(`https://www.omdbapi.com/?apikey=b93d2d48&s=${query}`)
+        
+            let data=await res.json();
+
+            let actual_data=data.Search;
+        
+        console.log(actual_data)
+        if(actual_data !=undefined)
+        {
+            appendData(actual_data)
+        
+        }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
+
+    function appendData(data){
+        let query=document.getElementById("query").value;
+        con.innerHTML=null;
+
+            data.forEach(function (ele){
+            let div=document.createElement("div")
+            div.setAttribute("id","div")
+            let img=document.createElement("img")
+            img.setAttribute("id","img2")
+            img.src=ele.Poster;
+
+            let name=document.createElement("h2")
+            name.innerText=ele.Title;
+        
+        div.append(img,name)
+       
+            con.append(div)
+    
+       
+
+            console.log(con)
+         
+        
+        })
+    }
+
+
+
+
+async function movieData(){
+    let query=document.getElementById("query").value;
+
+    try{
+         
+        let result=await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=8272f11b304ba4c8c83fbf3e11d21486`)
+
+        let mData=await result.json();
+         appendData2(mData.results)
+        console.log(mData.results)
+    }catch(err){
+        console.log(err)
+    }
+}
+
+movieData()
+
+    function appendData2(mData){
+
+        mData.forEach(function (el){
+            
+         let con1=document.getElementById("movie")
+
+            let div=document.createElement("div")
+
+            let img=document.createElement("img")
+            img.src=`https://image.tmdb.org/t/p/w500${el.poster_path}`
+            img.setAttribute("id","last_img")
+
+            let title=document.createElement("h4")
+            title.innerText=el.title;
+
+            let year=document.createElement("p")
+            year.innerText=`Year:-${el.release_date}`
+
+            let type=document.createElement("p")
+            type.innerText=`Type:-${el.media_type}`
+
+            div.append(img,title,year,type)
+            con1.append(div)
+
+        })
+         
+       
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(im)
+{
+    clearTimeout(im)
+}
+
+function debounce(func,deley){
+
+    im=setTimeout(function(){
+        func();
+    },deley)
+}
+
+
+
+
+
+
+
+</script>

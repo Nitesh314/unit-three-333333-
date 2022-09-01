@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h2{
+            text-align: center;
+            color: red;
+            
+        }
+        #nav{
+            display: flex;
+            width: 100%;
+            height: 80px;
+            background-color: black;
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+        }
+        #img1{
+            width: 5%;
+            height: 80px;
+        }
+     
+        #query{
+            margin-left:25%;
+            width: 50%;
+            height: 40px;
+            margin-top: 18px;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+        #con{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 20px;
+            text-align: center;
+            margin-top: 50px;
+          
+        }
+        #con>div{
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+        }
+        img{
+            width: 100%;
+            height: 350px;
+        }
+        h4{
+            color: red;
+        }
+        p{
+            color:green;
+        }
+    </style>
+</head>
+<body>
+    <h2>Search your movies</h2>
+    <div id="nav">
+        <img src="https://bestappsforkids.com/wp-content/uploads/2020/09/Film-Maker-Pro-Free-Movie-Maker-Video-Editor-300x300.png" alt="" id="img1">
+      <input type="text" oninput="main()" id="query" placeholder="search">
+     
+
+    </div>
+    <div id="con"></div>
+    <div id="con1"></div>
+</body>
+</html>
+
+<script>
+
+let data;
+    async function main(){
+        let query1=document.getElementById("query").value;
+        if(query1==""){
+            window.location.reload()
+        }
+     
+        try{
+            let query1=document.getElementById("query").value;
+           
+            let res=await fetch(`https://www.omdbapi.com/?apikey=b93d2d48&s=${query1}`)
+             data=await res.json();
+             appendmovie(data.Search)
+           
+            //console.log(data.Search)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
+    function appendmovie(data){
+      // console.log(data)
+        data.forEach(function (ele){
+            let div=document.createElement("div");
+
+            let image=document.createElement("img");
+            image.src=ele.Poster;
+
+            let title=document.createElement("h4")
+            title.innerText=ele.Title;
+
+            let year=document.createElement("p")
+            year.innerText=`Year:-${ele.Year}`;
+
+            let imdbi=document.createElement("p")
+            imdbi.innerText=`imdbID:-${ele.imdbID}`;
+
+            let type=document.createElement("p")
+            type.innerText=`Type:-${ele.Type}`;
+
+            div.append(image,title,year,imdbi,type)
+            document.getElementById("con").append(div)
+        })
+    }
+
+
+  
+
+   
+
+  
+</script>
